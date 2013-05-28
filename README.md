@@ -2,7 +2,7 @@
 
 GitベースのWikiであるGollumに全ページの編集履歴表示機能を追加する
 
-```開発中```
+開発中
 
 ## Installation
 
