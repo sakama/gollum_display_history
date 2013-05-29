@@ -1,15 +1,18 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'gollum-lib'
 require 'gollum_display_history/version'
+require 'gollum_display_history/wiki'
+require 'gollum_display_history/page'
 
 Gem::Specification.new do |spec|
   spec.name          = "gollum_display_history"
   spec.version       = GollumDisplayHistory::VERSION
-  spec.authors       = ["sakama"]
-  spec.email         = ["satoshi777v@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.authors       = ["Satoshi Akama"]
+  spec.email         = ["satoshiakama@gmail.com"]
+  spec.description   = %q{Write a gem description}
+  spec.summary       = %q{Write a gem summary}
   spec.homepage      = ""
   spec.license       = "MIT"
 
