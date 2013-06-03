@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 module Gollum
   class GollumDisplayHistoryPage < Gollum::Page
     include Pagination
@@ -28,6 +29,7 @@ module Gollum
       }
       #authored_date降順でsort
       commits.sort!{|a,b|b[:authored_date] <=> a[:authored_date]}
+      return commits
     end
   end
 end

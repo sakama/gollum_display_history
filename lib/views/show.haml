@@ -1,0 +1,8 @@
+%table
+  %tbody
+    - @versions.each do |version|
+      %tr
+        %td(class="author")
+        %td(class="commit-name")
+          %span(class="time-elapsed")
+            #{version[:authored_date]}

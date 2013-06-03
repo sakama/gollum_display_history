@@ -3,8 +3,6 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'gollum-lib'
 require 'gollum_display_history/version'
-require 'gollum_display_history/wiki'
-require 'gollum_display_history/page'
 
 Gem::Specification.new do |spec|
   spec.name          = "gollum_display_history"
