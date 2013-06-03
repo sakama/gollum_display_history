@@ -21,7 +21,7 @@ module Sinatra
       wiki = Gollum::Wiki.new(".git", :base_path => "/root/repos")
       page = wiki.page("home")
       @versions = page.get_versions
-      send @@template_engine,  get_view_as_string("show.haml")
+      send @@template_engine,  get_view_as_string("show.#{@@template_engine}")
     end
 
     private
