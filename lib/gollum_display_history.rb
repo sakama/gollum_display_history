@@ -13,9 +13,6 @@ module Sinatra
   module GollumDisplayHistory
     @@view_path = File.expand_path("../views/", __FILE__)
     @@template_engine = :haml
-    #def self.registered(app)
-    #  app.helpers GollumDisplayHistory::Helpers
-    #end
     
     def display_global_history
       wiki = Gollum::Wiki.new(".git", :base_path => @base_url)

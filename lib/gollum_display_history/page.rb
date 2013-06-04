@@ -12,8 +12,7 @@ module Gollum
     #各ページのcommit履歴をcommit日時降順で取得
     def get_versions
       commits = Array.new
-      pages =  @wiki.pages()
-      pages.each { |page|
+      @wiki.pages().each { |page|
         page = @wiki.page(page.name)
         page.versions.each { |v|
           @left_diff_line_number = 0
@@ -40,6 +39,7 @@ module Gollum
       commits
     end
 
+    # commitのdiffを画面表示用にフォーマットする
     def get_formatted_diff(full_diff)
       lines = []
       if full_diff.split("\n").length<3
@@ -54,6 +54,7 @@ module Gollum
       lines
     end
 
+    # 画面にdiff表示する際に必要なCSSのクラス名を返す
     def line_class(line)
       if line =~ /^@@/
         'gc'
@@ -66,6 +67,7 @@ module Gollum
       end
     end
 
+    # commit前(左列)の行番号を求める
     def left_diff_line_number(id, line)
       if line =~ /^@@/
         m, li = *line.match(/\-(\d+)/)
@@ -86,6 +88,7 @@ module Gollum
       ret
     end
 
+    # commit後(右列)の行番号を求める
     def right_diff_line_number(id, line)
       if line =~ /^@@/
         m, ri = *line.match(/\+(\d+)/)
