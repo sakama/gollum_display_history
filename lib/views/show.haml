@@ -1,8 +1,79 @@
-%table
-  %tbody
-    - @versions.each do |version|
-      %tr
-        %td(class="author")
-        %td(class="commit-name")
-          %span(class="time-elapsed")
-            #{version[:authored_date]}
+:css
+  .markdown-body .compare table tr {
+      background:#fff;
+  }
+  .markdown-body .compare table tr:nth-child(2n+1) {
+      background-color: #f8f8f8;
+  }
+  .markdown-body .compare table tr.diff-area {
+      background-color: #fff;
+  }
+  .markdown-body .compare .data {
+      display:none;
+  }
+  .diff-area .actions {
+      margin-bottom:3px;
+      padding-left:0;
+  }
+  .diff-area .actions li {
+      margin-left:0;
+  }
+  #wiki-body .compare #diff-table tr.diff-area .data table {
+      margin-bottom:0;
+  }
+  #wiki-body .compare #diff-table tr.diff-area .data tr {
+      border-width:0;
+  }
+  #wiki-body .compare #diff-table tr.diff-area .data td {
+      border-width:0;
+  }
+  #wiki-body .compare #diff-table tr.diff-area .data td.line_numbers {
+      border-width: 0 1px 0 0;
+  }
+  #wiki-body .compare #diff-table tr.diff-area .data td pre {
+      border: none;
+      border-radius:0;
+  }
+
+:javascript
+  $(function() {
+    $('.view-diff-btn').click(function() {
+      var btn-id = $(this).id;
+      console.log(btn-id);
+      var ids = btn-id.split('-');
+      console.log(ids);
+      $("#area-" + ids[1]).toggle();
+    });
+  );
+
+%div.compare
+  %table{:width => "100%", :id => "diff-table"}
+    %tbody
+      - @versions.each do |version|
+        %tr{:class => "diff-header"}
+          %td{:class => "author"}
+            %a{:href => "javascript:void(0)"}
+              %img(src="https://secure.gravatar.com/avatar/#{version[:gravatar]}?s=16" alt="avatar: #{version[:author_name]}" class="mini-gravatar")
+              %span{:class => "username"}#{version[:author_name]}
+          %td{:class => "commit-name"}
+            %span{:class => "time-elapsed"}
+              #{version[:authored_formatted_date]}
+            %strong{:class => "page"}
+              %a{:href => "#{@base_url}/#{version[:page]}/"}
+                #{version[:page]}
+            %a(title="View commit"){:href => "#{@base_url}/#{version[:page]}/#{version[:id]}"}#{version[:short_id]}
+        %tr{:class => "diff-area"}
+          %td{:colspan => "2"}
+            %ul{:class => "actions"}
+              %li{:class => "minibutton"}
+                %a(href="javascript:void(0);" class="view-diff-btn" id ="btn-#{version[:id]}")
+                  View Diff
+            %div{:class => "data highlight"}
+              %table{:cellpadding => 0, :cellspacing => 0}
+                - version[:full_diff_lines].each do |line|
+                  %tr
+                    %td{:class => "line_numbers"}#{line[:ldln]}
+                    %td{:class => "line_numbers"}#{line[:rdln]}
+                    %td
+                      %pre
+                        %div{:class => "#{line[:class]}"}#{line[:line]}

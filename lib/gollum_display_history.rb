@@ -16,10 +16,12 @@ module Sinatra
     #def self.registered(app)
     #  app.helpers GollumDisplayHistory::Helpers
     #end
-
+    
     def display_global_history
-      wiki = Gollum::Wiki.new(".git", :base_path => "/root/repos")
+      wiki = Gollum::Wiki.new(".git", :base_path => @base_url)
       page = wiki.page("home")
+      @base_url = url('/', false).chomp('/')
+      @escaped_url_path = page.escaped_url_path
       @versions = page.get_versions
       send @@template_engine,  get_view_as_string("show.#{@@template_engine}")
     end
